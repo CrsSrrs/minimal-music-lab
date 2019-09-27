@@ -10,6 +10,7 @@
   "dependencies": {
     "@tonejs/ui": "0.0.8",
     "core-js": "^2.6.5",
+    "tone": "^13.8.25",
     "vue": "^2.6.10",
     "vue-router": "^3.0.3"
   },
