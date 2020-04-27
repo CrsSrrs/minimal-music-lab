@@ -2,7 +2,7 @@
   <section class="sequence-part">
     <div class="grid-row">
       <div class="grid-col">
-        <h2>Shifting</h2>
+        <h2>{{ index + 1 }} - Shifting</h2>
       </div>
       <div class="grid-col">
         #-Buttons:
@@ -15,7 +15,7 @@
         <p>Count: {{ (count % 4) + 1 }}</p>
       </div>
       <div class="grid-col">
-        <a @click="$emit('remove', index)">Remove</a>
+        <a @click="remove">Remove</a>
       </div>
     </div>
 
@@ -130,6 +130,11 @@ export default {
     setSequenceHighlight(current) {
       this.clearSequenceHighlight();
       this.$refs.sequenceButton[current].setAttribute('highlight', current);
+    },
+
+    remove() {
+      this.sequence.removeAll();
+      this.$emit('remove', this.index);
     },
   },
 };

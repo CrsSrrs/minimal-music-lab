@@ -3,7 +3,7 @@
     <div class="main-controls">
       <div class="grid-row  -centered">
         <div class="grid-col">
-          <h2>Main Controls</h2>
+          <p class="font-size-l"><strong>Main Controls</strong></p>
         </div>
         <div class="grid-col">
           Tempo:
@@ -102,6 +102,10 @@ export default {
 
   .mb-m {
     margin-bottom: 32px;
+  }
+
+  .font-size-l {
+    font-size: 20px;
   }
 
   hr {

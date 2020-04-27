@@ -2,7 +2,7 @@
   <section class="sequence-part">
     <div class="grid-row">
       <div class="grid-col">
-        <h2>Phasing</h2>
+        <h2>{{ index + 1 }} - Phasing</h2>
       </div>
       <div class="grid-col">
         #-Buttons:
@@ -12,7 +12,7 @@
         <p>Phasing Tempo: {{ parseInt(temp, 10) + 1 }}</p>
       </div>
       <div class="grid-col">
-        <a @click="$emit('remove', index)">Remove</a>
+        <a @click="remove">Remove</a>
       </div>
     </div>
 
@@ -127,14 +127,22 @@ export default {
     },
 
     setSequenceHighlight(ref, current) {
-      this.clearSequenceHighlight(ref);
-      ref[current].setAttribute('highlight', current);
+      if (ref.length) {
+        this.clearSequenceHighlight(ref);
+        ref[current].setAttribute('highlight', current);
+      }
     },
 
     clearSequenceHighlight(ref) {
       ref.forEach((btn) => {
         btn.removeAttribute('highlight');
       });
+    },
+
+    remove() {
+      this.sequence.removeAll();
+      this.secondSequence.removeAll();
+      this.$emit('remove', this.index);
     },
   },
 };

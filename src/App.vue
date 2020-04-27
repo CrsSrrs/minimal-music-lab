@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <header>
+    <header class="site-inner">
       <div id="logo">
         <img src="./assets/logo.png">
       </div>
@@ -22,19 +22,18 @@
   color: #2c3e50;
 }
 
-header {
+.site-inner {
   max-width: 1164px;
   margin-left: auto;
   margin-right: auto;
+}
+
+header {
   margin-bottom: 40px;
 
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-#logo {
-
 }
 
 #nav {
