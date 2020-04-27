@@ -14,6 +14,9 @@
       <div class="grid-col">
         <p>Count: {{ (count % 4) + 1 }}</p>
       </div>
+      <div class="grid-col">
+        <a @click="$emit('remove', index)">Remove</a>
+      </div>
     </div>
 
     <div class="row" v-for="index in seqs" :key="index">
@@ -45,6 +48,9 @@ export default {
     columns: {
       type: Number,
       default: 12,
+    },
+    index: {
+      type: Number,
     },
   },
   data() {
@@ -118,7 +124,7 @@ export default {
         if (col === (this.btns - 1)) {
           this.count += 1;
         }
-      }, [...Array(parseInt(this.btns, 10)).keys()], '16n').start(0);
+      }, [...Array(parseInt(this.btns, 10)).keys()], `${this.btns}n`).start(0);
     },
 
     setSequenceHighlight(current) {
@@ -130,4 +136,4 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss"> </style>
+<style scoped lang="scss"></style>

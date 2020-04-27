@@ -11,6 +11,9 @@
       <div class="grid-col">
         <p>Phasing Tempo: {{ parseInt(temp, 10) + 1 }}</p>
       </div>
+      <div class="grid-col">
+        <a @click="$emit('remove', index)">Remove</a>
+      </div>
     </div>
 
     <div class="row" v-for="index in seqs" :key="index">
@@ -45,6 +48,9 @@ export default {
       default: 12,
     },
     temp: {
+      default: 80,
+    },
+    index: {
       type: Number,
     },
   },
@@ -80,7 +86,8 @@ export default {
     this.initSequence();
     this.$tone.Transport.on('stop', () => {
       this.count = 0;
-      this.clearSequenceHighlight();
+      this.clearSequenceHighlight(this.$refs.sequenceButton);
+      this.clearSequenceHighlight(this.$refs.progressSequenceButton);
     });
   },
   methods: {
@@ -96,25 +103,21 @@ export default {
       if (this.sequence) this.sequence.removeAll();
       if (this.secondSequence) this.secondSequence.removeAll();
 
-      const seconds = (parseInt(this.temp, 10) / 60) / 16;
-      const phased = ((parseInt(this.temp, 10) - 1.5) / 60) / 16;
-
-      console.log(seconds, 'seconds');
-      console.log(phased, 'phased');
+      const phased = new this.$tone().toSeconds(`${this.btns}n`) - (1 / ((this.temp + 1) * (this.btns / 4)));
 
       this.sequence = new this.$tone.Sequence((time, col) => {
         if (this.tones[col]) {
-          this.synth.triggerAttackRelease('C3', '32n');
+          this.synth.triggerAttackRelease('C3', '12n');
         }
 
         this.$tone.Draw.schedule(() => {
           this.setSequenceHighlight(this.$refs.sequenceButton, col);
         });
-      }, [...Array(parseInt(this.btns, 10)).keys()], seconds).start(0);
+      }, [...Array(parseInt(this.btns, 10)).keys()], `${this.btns}n`).start(0);
 
       this.secondSequence = new this.$tone.Sequence((time, col) => {
         if (this.progressTones[col]) {
-          this.secondSynth.triggerAttackRelease('E3', '32n');
+          this.secondSynth.triggerAttackRelease('E3', '12n');
         }
 
         this.$tone.Draw.schedule(() => {

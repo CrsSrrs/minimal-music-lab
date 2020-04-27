@@ -14,8 +14,14 @@
         </div>
       </div>
     </div>
-    <Shifting></Shifting>
-    <Phasing :temp="temp"></Phasing>
+    <div v-if="modules.length > 0">
+      <component v-for="(module, index) in modules" :key="index" :is="module" :index="index" :temp="temp" @remove="removeModule"></component>
+    </div>
+    <p class="mb-m">
+      Chose a technique. You can add multiple techniques. All techniques will be played at the same time.
+    </p>
+    <a class="button" @click="addShifting">Add Shifting</a> or
+    <a class="button" @click="addPhasing">Add Phasing</a>
   </div>
 </template>
 
@@ -28,6 +34,7 @@ export default {
   name: 'home',
   data() {
     return {
+      modules: [],
       temp: 80,
     };
   },
@@ -36,9 +43,25 @@ export default {
       this.$tone.Transport.bpm.value = val;
     },
   },
-  mounted() {
+  created() {
     this.$tone.Transport.bpm.value = this.temp;
+    this.$tone.Transport.swingSubdivision = '12n';
+  },
+  mounted() {
     this.$refs.playButton.bind(this.$tone.Transport);
+  },
+  methods: {
+    addShifting() {
+      this.modules.push(Shifting);
+    },
+
+    addPhasing() {
+      this.modules.push(Phasing);
+    },
+
+    removeModule(index) {
+      this.modules.splice(index);
+    },
   },
   components: {
     Shifting,
@@ -67,6 +90,18 @@ export default {
 
   a {
     color: #42b983;
+    cursor: pointer;
+
+    font-weight: bold;
+
+    transition: color .4s ease;
+    &:hover {
+      color: darken(#42b983, 10);
+    }
+  }
+
+  .mb-m {
+    margin-bottom: 32px;
   }
 
   hr {
@@ -130,6 +165,32 @@ export default {
       &.is-active {
         background-color: #959DA5;
       }
+    }
+  }
+
+  .home {
+    padding-bottom: 80px;
+  }
+
+  .button {
+    padding: 16px;
+    margin-left: 8px;
+    margin-right: 8px;
+
+    display: inline-block;
+    cursor: pointer;
+    border: 1px solid #42b983;
+    border-radius: 5px;
+
+    background-color: #42b983;
+    color: #fff;
+
+    font-weight: bold;
+    transition: background-color .4s ease, color .4s ease;
+
+    &:hover {
+      background-color: transparent;
+      color: #42b983;
     }
   }
 </style>
