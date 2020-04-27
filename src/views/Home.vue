@@ -60,7 +60,7 @@ export default {
     },
 
     removeModule(index) {
-      this.modules.splice(index);
+      this.modules.splice(index, 1);
     },
   },
   components: {
