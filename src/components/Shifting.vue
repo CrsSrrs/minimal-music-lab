@@ -5,7 +5,7 @@
         <h2>{{ index + 1 }} - Shifting</h2>
       </div>
       <div class="grid-col">
-        #-Buttons:
+        #-Beats:
         <input type="number" v-model="btns" min="1" max="32">
       </div>
       <div class="grid-col">

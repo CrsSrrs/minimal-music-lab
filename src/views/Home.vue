@@ -18,7 +18,7 @@
       <component v-for="(module, index) in modules" :key="index" :is="module" :index="index" :temp="temp" @remove="removeModule"></component>
     </div>
     <p class="mb-m">
-      Chose a technique. You can add multiple techniques. All techniques will be played at the same time.
+      Select a technique to add a track. It is possible to add multiple tracks. All tracks are played back together.
     </p>
     <a class="button" @click="addShifting">Add Shifting</a> or
     <a class="button" @click="addPhasing">Add Phasing</a>
