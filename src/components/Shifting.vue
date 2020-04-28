@@ -117,8 +117,10 @@ export default {
         }
 
         this.$tone.Draw.schedule(() => {
-          this.setSequenceHighlight(col);
-          this.$refs.sequenceButton[col].setAttribute('highlight', col);
+          if (this.$refs.sequenceButton.length) {
+            this.setSequenceHighlight(col);
+            this.$refs.sequenceButton[col].setAttribute('highlight', col);
+          }
         });
 
         if (col === (this.btns - 1)) {
